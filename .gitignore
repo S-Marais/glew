@@ -1,4 +1,5 @@
 *.pc
+*.dummy
 /src/*.c
 /include/GL/*.h
 /build/vc6/*.rc
@@ -20,3 +21,6 @@
 /tmp
 /out
 .DS_Store*
+.idea/
+cmake-build-debug/
+cmake-build-release/

@@ -86,12 +86,12 @@ registry: OpenGL-Registry/.dummy
 ext: $(EXT)/.dummy
 
 OpenGL-Registry/.dummy:
-	@echo "--------------------------------------------------------------------"
-	@echo "Downloading OpenGL-Registry"
-	@echo "--------------------------------------------------------------------"
-	git clone https://github.com/KhronosGroup/OpenGL-Registry.git OpenGL-Registry
-	git clone https://github.com/KhronosGroup/EGL-Registry.git EGL-Registry
-	git clone --branch glew https://github.com/nigels-com/glfixes glfixes
+#	@echo "--------------------------------------------------------------------"
+#	@echo "Downloading OpenGL-Registry"
+#	@echo "--------------------------------------------------------------------"
+#	git clone https://github.com/KhronosGroup/OpenGL-Registry.git OpenGL-Registry
+#	git clone https://github.com/KhronosGroup/EGL-Registry.git EGL-Registry
+#	git clone --branch glew https://github.com/nigels-com/glfixes glfixes
 	touch $@
 
 $(EXT)/.dummy: OpenGL-Registry/.dummy

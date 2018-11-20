@@ -18,7 +18,7 @@ endif()
 
 set(CMAKE_DEBUG_POSTFIX d)
 
-option (BUILD_UTILS "utilities" ON)
+option (BUILD_UTILS "utilities" OFF)
 option (GLEW_REGAL "Regal mode" OFF)
 option (GLEW_OSMESA "OSMesa mode" OFF)
 if (APPLE)
@@ -37,10 +37,14 @@ string (REGEX REPLACE "GLEW_MICRO[ ]*=[ ]*([0-9]+)" "\\1" CPACK_PACKAGE_VERSION_
 set (GLEW_VERSION ${CPACK_PACKAGE_VERSION_MAJOR}.${CPACK_PACKAGE_VERSION_MINOR}.${CPACK_PACKAGE_VERSION_PATCH})
 
 set (CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
-set (CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+set (CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 set (CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
-find_package (OpenGL REQUIRED)
+if (NOT WIN32 AND NOT APPLE)
+  find_package(OpenGL COMPONENTS OpenGL GLX REQUIRED)
+else()
+  find_package (OpenGL REQUIRED)
+endif()
 
 # X11 required when builing visualinfo and glewinfo,
 # but not for Windows or Apple OSX platforms
@@ -55,7 +59,11 @@ else ()
   set (DLL_PREFIX lib)
 endif ()
 
-set (GLEW_LIBRARIES ${OPENGL_LIBRARIES})
+if (NOT WIN32 AND NOT APPLE)
+  set(GLFW_LIBRARIES OpenGL::OpenGL OpenGL::GLX)
+else()
+  set (GLEW_LIBRARIES ${OPENGL_LIBRARIES})
+endif()
 
 add_definitions (-DGLEW_NO_GLU)
 
