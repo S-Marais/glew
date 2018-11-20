@@ -94,8 +94,6 @@ endif ()
 
 #### GLEW ####
 
-include_directories (${GLEW_DIR}/include)
-
 set (GLEW_PUBLIC_HEADERS_FILES ${GLEW_DIR}/include/GL/wglew.h ${GLEW_DIR}/include/GL/glew.h ${GLEW_DIR}/include/GL/glxew.h)
 set (GLEW_SRC_FILES ${GLEW_DIR}/src/glew.c)
 
@@ -143,7 +141,9 @@ if (BUILD_FRAMEWORK)
 endif()
 
 target_link_libraries (glew LINK_PUBLIC ${GLEW_LIBRARIES})
+target_include_directories(glew PUBLIC $<BUILD_INTERFACE:${GLEW_DIR}/include>)
 target_link_libraries (glew_s ${GLEW_LIBRARIES})
+target_include_directories(glew_s PUBLIC $<BUILD_INTERFACE:${GLEW_DIR}/include>)
 
 if(CMAKE_VERSION VERSION_LESS 2.8.12)
   set(MAYBE_EXPORT "")
